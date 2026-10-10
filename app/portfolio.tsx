@@ -1,22 +1,20 @@
 'use client';
 import { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
+import type { PageContent, Project } from '@/lib/content';
 export function Mosaic({
   items,
   columns = 4,
   gap = 8,
   onOpen,
-  onReorder,
 }: {
   items: any[];
   columns?: number;
   gap?: number;
   onOpen?: (i: number) => void;
-  onReorder?: (a: number, b: number) => void;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(0);
-  const drag = useRef<number | null>(null);
   const [dimensions, setDimensions] = useState<
     Record<string, { width: number; height: number }>
   >({});
@@ -64,7 +62,7 @@ export function Mosaic({
   return (
     <div
       ref={ref}
-      className={onReorder ? 'mosaic mosaic-editable' : 'mosaic'}
+      className="mosaic"
       style={{
         height: Math.max(0, ...heights),
         visibility: width > 0 ? 'visible' : 'hidden',
@@ -81,51 +79,8 @@ export function Mosaic({
             aria-label={
               item.href
                 ? item.caption
-                : `${onReorder ? 'Move' : 'View'} ${item.caption || `memory ${i + 1}`}`
+                : `View ${item.caption || `memory ${i + 1}`}`
             }
-            draggable={!!onReorder}
-            onDragStart={(e) => {
-              drag.current = i;
-              e.dataTransfer.effectAllowed = 'move';
-              e.dataTransfer.setData('text/plain', item.id);
-            }}
-            onDragOver={(e) => {
-              if (
-                onReorder &&
-                !ref.current?.closest('fieldset')?.disabled &&
-                drag.current !== null
-              ) {
-                e.preventDefault();
-                if (drag.current !== i) {
-                  onReorder(drag.current, i);
-                  drag.current = i;
-                }
-              }
-            }}
-            onDrop={(e) => {
-              e.preventDefault();
-              drag.current = null;
-            }}
-            onDragEnd={() => (drag.current = null)}
-            onKeyDown={(e) => {
-              if (
-                onReorder &&
-                e.altKey &&
-                ['ArrowLeft', 'ArrowRight'].includes(e.key)
-              ) {
-                e.preventDefault();
-                onReorder(
-                  i,
-                  Math.max(
-                    0,
-                    Math.min(
-                      items.length - 1,
-                      i + (e.key === 'ArrowRight' ? 1 : -1),
-                    ),
-                  ),
-                );
-              }
-            }}
             onClick={() => onOpen?.(i)}
             style={boxes[i]}
           >
@@ -153,9 +108,7 @@ export function Mosaic({
                 `Memory ${i + 1} from Vivian Kim’s photo journal`
               }
               loading="lazy"
-              draggable={false}
             />
-            {onReorder && <span className="position-badge">{i + 1}</span>}
             {item.href && (
               <span className="mosaic-project-caption">{item.caption}</span>
             )}
@@ -226,7 +179,6 @@ export function Gallery({
 }
 function HeroFilm({ src, poster }: { src: string; poster: string }) {
   const video = useRef<HTMLVideoElement>(null);
-  const [paused, setPaused] = useState(true);
   useEffect(() => {
     const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
     if (!preference.matches) video.current?.play().catch(() => {});
@@ -237,38 +189,23 @@ function HeroFilm({ src, poster }: { src: string; poster: string }) {
     return () => preference.removeEventListener('change', stop);
   }, [src]);
   return (
-    <div className="hero-film">
-      <video
-        ref={video}
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        poster={poster}
-        src={src}
-        aria-label="Vivian Kim portfolio showreel"
-        onPlay={() => setPaused(false)}
-        onPause={() => setPaused(true)}
-      />
-      <button
-        className="hero-playback"
-        onClick={() => {
-          const el = video.current;
-          if (!el) return;
-          if (el.paused) el.play().catch(() => {});
-          else el.pause();
-        }}
-      >
-        {paused ? 'Play film' : 'Pause film'}
-      </button>
-    </div>
+    <video
+      ref={video}
+      muted
+      loop
+      playsInline
+      preload="metadata"
+      poster={poster}
+      src={src}
+      aria-label="Vivian Kim portfolio showreel"
+    />
   );
 }
 export default function Portfolio({
   content: c,
   route = '',
 }: {
-  content: any;
+  content: PageContent;
   route?: string;
 }) {
   useEffect(() => {
@@ -314,19 +251,13 @@ export default function Portfolio({
       reduced.removeEventListener('change', reset);
     };
   }, [route]);
-  const ordered = (kind: string) =>
-    c.projects.filter(
-      (p: any) =>
-        p.published && (kind === 'featured' || p.categories.includes(kind)),
-    );
-  const p = route.startsWith('project/')
-    ? c.projects.find((p: any) => p.slug === route.slice(8) && p.published)
-    : null;
+  const ordered = () => c.projects;
+  const p = route.startsWith('project/') ? c.projects[0] : null;
   const cards = (kind: string) =>
     kind === 'stills' || kind === 'featured' ? (
       <Mosaic
-        items={ordered(kind).map((p: any) => ({
-          id: p.id,
+        items={ordered().map((p: Project) => ({
+          id: p.slug,
           src: p.cover,
           ...p.coverMedia,
           sizes:
@@ -341,8 +272,8 @@ export default function Portfolio({
       />
     ) : (
       <div className="motion-grid">
-        {ordered(kind).map((p: any) => (
-          <a className="project-card" href={'/project/' + p.slug} key={p.id}>
+        {ordered().map((p: Project) => (
+          <a className="project-card" href={'/project/' + p.slug} key={p.slug}>
             <img
               src={p.cover}
               srcSet={p.coverMedia?.srcSet}
@@ -371,21 +302,21 @@ export default function Portfolio({
           {c.navigation[0].label}
         </a>
         <div>
-          {c.navigation.slice(1, -1).map((n: any) => (
-            <a key={n.id} href={n.href}>
+          {c.navigation.slice(1, -1).map((n) => (
+            <a key={n.href} href={n.href}>
               {n.label}
             </a>
           ))}
         </div>
-        <a href={c.navigation.at(-1).href}>{c.navigation.at(-1).label}</a>
+        <a href={c.navigation.at(-1)!.href}>{c.navigation.at(-1)!.label}</a>
       </nav>
       <main id="main-content" tabIndex={-1}>
         {!route ? (
           <>
             <section className="hero">
               <div className="hero-content">
-                <h1>{c.hero.copy}</h1>
-                <HeroFilm src={c.hero.video} poster={c.hero.poster} />
+                <h1>{c.hero!.copy}</h1>
+                <HeroFilm src={c.hero!.video} poster={c.hero!.poster} />
               </div>
             </section>
             <section className="base-grid clients">
@@ -405,13 +336,13 @@ export default function Portfolio({
         ) : route === 'memories' ? (
           <>
             <section className="memory-intro">
-              <h1>{c.memories.title}</h1>
+              <h1>{c.memories!.title}</h1>
             </section>
             <section className="memory-gallery">
               <Gallery
-                items={c.memories.items}
-                columns={c.memories.columns}
-                gap={c.memories.gap}
+                items={c.memories!.items}
+                columns={c.memories!.columns}
+                gap={c.memories!.gap}
               />
             </section>
           </>
@@ -419,11 +350,15 @@ export default function Portfolio({
           <section className="base-grid listing">
             <a
               className="back-link"
-              href={p.categories.includes('motion') ? '/motion' : '/stills'}
+              href={'/' + p.category}
             >
               ← &nbsp; Back to List
             </a>
-            <article className={'project-detail ' + p.layout}>
+            <article
+              className={
+                'project-detail ' + (p.category === 'motion' ? 'grid' : 'stack')
+              }
+            >
               <h1>
                 {p.title}
                 <br />
@@ -433,18 +368,24 @@ export default function Portfolio({
                 <p className="project-description">{p.description}</p>
               )}
               <div className="project-blocks">
-                {p.blocks.map((b: any, i: number) => (
+                {p.blocks.map((b, i) => (
                   <figure
                     className={
                       b.type === 'embed' || b.type === 'video'
                         ? 'embed-block'
                         : ''
                     }
-                    key={b.id || i}
+                    key={i}
                   >
                     {b.type === 'image' ? (
                       <img
                         src={b.src}
+                        srcSet={b.media?.srcSet}
+                        sizes={
+                          p.category === 'motion'
+                            ? '(max-width: 767px) 50vw, 38vw'
+                            : '(max-width: 767px) 100vw, 76vw'
+                        }
                         width={b.media?.width}
                         height={b.media?.height}
                         decoding="async"

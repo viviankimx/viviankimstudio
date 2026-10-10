@@ -5,5 +5,8 @@ dist/
 !.env.example
 *.tsbuildinfo
 .DS_Store
-.cloudflare-public/
 public/media/
+.generated/
+.vercel/
+.next/
+.vinext/

@@ -1,5 +1,6 @@
 import type { NextConfig } from 'next';
 
-const nextConfig: NextConfig = {};
+// Static export: every page is prerendered from content/ at build time.
+const nextConfig: NextConfig = { output: 'export' };
 
 export default nextConfig;
