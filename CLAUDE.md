@@ -85,13 +85,15 @@ the right folder with clean sequential names (`01.jpg`, `02.jpg`, …), then run
 
 ## Common requests
 
-- **Add memories**: copy the photos into `content/memories/` with names that sort into the requested
-  position, then run `npm run media`.
-- **New project**: create `content/projects/<slug>/`, add images as `01.jpg…`, write `index.md`, add the
-  slug under `## Stills` or `## Motion` in `site.md` (and under `## Featured` if wanted).
-- **Reorder / feature / hide**: edit the lists in `site.md`. Removing a slug from every list hides the project; its folder can stay.
-- **Delete a project**: remove it from `site.md` and delete its folder (only if the user asked for deletion, not hiding).
-- **Copy changes** (hero text, clients, footer, titles): edit the Markdown directly.
+Project skills in `.claude/skills/` cover the usual jobs; use them:
+- **`add-memories`**: upload photos to Memories (`node scripts/add-memories.mjs [--bottom] <files or folder>`).
+  It renumbers, converts HEIC, and compresses.
+- **`add-project`**: create a Stills/Motion project from a folder of images
+  (`node scripts/add-project.mjs --slug … --title … --category stills|motion [--featured] [--video URL] <images>`),
+  or update, reorder, feature or hide existing ones.
+- **`publish-site`**: verify, commit and push so Vercel deploys.
+
+Small copy changes (hero text, clients, footer, titles) are direct Markdown edits.
 
 ## Checking your work
 

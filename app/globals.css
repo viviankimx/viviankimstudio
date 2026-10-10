@@ -157,9 +157,6 @@ h2 {
 .listing {
   margin-top: 70px;
 }
-.project-detail h1 {
-  margin-bottom: 16px;
-}
 .project-description {
   white-space: pre-line;
   margin: 20px 0;
@@ -169,17 +166,6 @@ h2 {
 .project-blocks video {
   width: 100%;
   display: block;
-}
-.project-blocks figure {
-  margin-bottom: 32px;
-}
-.project-detail.grid .project-blocks {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-}
-.project-detail.grid figure {
-  margin: 0;
 }
 .embed-block {
   grid-column: 1/-1;
@@ -322,9 +308,6 @@ figcaption {
   }
   .lightbox[data-slot='dialog-content'] {
     padding: 20px;
-  }
-  .project-detail.grid .project-blocks {
-    gap: 12px;
   }
 }
 .listing > h1,
@@ -656,4 +639,68 @@ a {
 #featured,
 #main-content {
   scroll-margin-top: 80px;
+}
+
+/* Project pages: the reference's 9-column grid. Back link spans 2 columns;
+   stills stack in 4 columns (5 on tablet), motion uses 7 with a 3-up image grid. */
+.project-page {
+  display: grid;
+  grid-template-columns: repeat(9, minmax(0, 1fr));
+  gap: 2vw;
+  padding: 2vw;
+  margin-top: 8vw;
+  align-items: start;
+}
+.project-page .back-link {
+  grid-column: span 2;
+}
+.project-page .project-detail {
+  grid-column: span 4;
+}
+.project-page .project-detail.grid {
+  grid-column: span 7;
+}
+.project-detail h1 {
+  margin-bottom: 1vw;
+}
+.project-detail.stack figure {
+  margin-bottom: 2vw;
+}
+.project-detail.grid .project-blocks {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2vw;
+  align-items: start;
+}
+@media (max-width: 991px) {
+  .project-page {
+    margin-top: 80px;
+  }
+  .project-page .project-detail.stack {
+    grid-column: span 5;
+  }
+}
+@media (max-width: 767px) {
+  .project-page {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .project-page .back-link,
+  .project-page .project-detail,
+  .project-page .project-detail.grid,
+  .project-page .project-detail.stack {
+    grid-column: auto;
+  }
+  .project-detail.grid .project-blocks {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .project-page .back-link {
+    margin-bottom: 0;
+  }
+}
+@media (max-width: 479px) {
+  .project-page {
+    gap: 1em 2em;
+    margin-top: 64px;
+    padding: 1em;
+  }
 }

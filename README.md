@@ -20,8 +20,14 @@ Then ask things like:
 - "Change the footer location to 'based in NYC'"
 - "Publish it"
 
-Claude compresses new images, checks the build, shows you the result, and pushes to `main`
-when you confirm. Vercel then deploys automatically.
+Claude uses the project skills in `.claude/skills/` (`add-memories`, `add-project`, `publish-site`). It
+compresses new images, checks the build, shows you the result, and pushes to `main` when you confirm.
+Vercel then deploys automatically. You can also run the scripts yourself:
+
+```bash
+node scripts/add-memories.mjs ~/Downloads/tokyo
+node scripts/add-project.mjs --slug nike-air-max --title "NIKE" --subtitle "Air Max" --category stills --featured ~/Desktop/airmax
+```
 
 ## Editing by hand
 

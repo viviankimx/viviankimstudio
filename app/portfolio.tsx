@@ -360,7 +360,7 @@ export default function Portfolio({
             </section>
           </>
         ) : p ? (
-          <section className="base-grid listing">
+          <section className="project-page">
             <a
               className="back-link"
               href={'/' + p.category}
@@ -396,8 +396,8 @@ export default function Portfolio({
                         srcSet={b.media?.srcSet}
                         sizes={
                           p.category === 'motion'
-                            ? '(max-width: 767px) 50vw, 38vw'
-                            : '(max-width: 767px) 100vw, 76vw'
+                            ? '(max-width: 767px) 50vw, 25vw'
+                            : '(max-width: 767px) 100vw, (max-width: 991px) 52vw, 42vw'
                         }
                         width={b.media?.width}
                         height={b.media?.height}
