@@ -1,0 +1,10 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "vivian-kim-studio",
+  "main": "vinext/server/fetch-handler",
+  "compatibility_date": "2026-10-05",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": { "directory": "dist/client", "binding": "ASSETS", "not_found_handling": "none" },
+  "vars": { "CMS_USERNAME": "admin" },
+  "observability": { "enabled": false }
+}
