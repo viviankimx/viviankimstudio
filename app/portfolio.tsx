@@ -7,11 +7,17 @@ export function Mosaic({
   columns = 4,
   gap = 8,
   onOpen,
+  breakpoints = [
+    [550, 2],
+    [850, 3],
+  ],
 }: {
   items: any[];
   columns?: number;
   gap?: number;
   onOpen?: (i: number) => void;
+  // [container width, max columns] pairs, narrowest first
+  breakpoints?: [number, number][];
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(0);
@@ -38,12 +44,10 @@ export function Mosaic({
       setDimensions((old) => ({ ...old, ...measured }));
     return () => ro.disconnect();
   }, []);
-  const cols =
-    width < 550
-      ? Math.min(2, columns)
-      : width < 850
-        ? Math.min(3, columns)
-        : columns;
+  const cols = Math.min(
+    columns,
+    breakpoints.find(([max]) => width < max)?.[1] ?? columns,
+  );
   const w = Math.max(0, (width - gap * (cols - 1)) / cols);
   const heights = Array(cols).fill(0);
   const boxes = items.map((i) => {
@@ -130,7 +134,16 @@ export function Gallery({
   const [index, setIndex] = useState<number | null>(null);
   return (
     <>
-      <Mosaic items={items} columns={columns} gap={gap} onOpen={setIndex} />
+      <Mosaic
+        items={items.map((i) => ({
+          ...i,
+          sizes: '(max-width: 599px) 33vw, 25vw',
+        }))}
+        columns={columns}
+        gap={gap}
+        onOpen={setIndex}
+        breakpoints={[[600, 3]]}
+      />
       <Dialog
         open={index !== null}
         onOpenChange={(open) => {
