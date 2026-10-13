@@ -9,6 +9,8 @@ export type Block = {
   src: string;
   caption: string;
   media?: Media;
+  // Embeds only: the film's own proportions, e.g. "1920 / 1080". Default 16:9.
+  ratio?: string;
 };
 export type Category = 'stills' | 'motion';
 export type Project = {
@@ -96,14 +98,22 @@ export function parseProject(slug: string, md: string, category: Category): Proj
   for (const raw of body.split('\n')) {
     const line = raw.trim();
     const img = /^!\[([^\]]*)\]\(([^)\s]+)\)$/.exec(line);
-    const embed = img ? null : embedUrl(line);
+    // An embed line is a link, optionally followed by the film's size: `URL 1920x1080`.
+    const embedLine = img ? null : /^(\S+)(?:\s+(\d+)\s*[x×:]\s*(\d+))?$/.exec(line);
+    const embed = embedLine ? embedUrl(embedLine[1]) : null;
     if (img)
       blocks.push({
         type: VIDEO.test(img[2]) ? 'video' : 'image',
         src: img[2],
         caption: img[1],
       });
-    else if (embed) blocks.push({ type: 'embed', src: embed, caption: '' });
+    else if (embed)
+      blocks.push({
+        type: 'embed',
+        src: embed,
+        caption: '',
+        ...(embedLine![2] ? { ratio: `${embedLine![2]} / ${embedLine![3]}` } : {}),
+      });
     else text.push(raw);
   }
   if (!data.title) throw Error(`content/projects/${slug}/index.md: missing title`);

@@ -35,3 +35,8 @@ test('repository content loads and every referenced file exists', () => {
   assert.ok(s.memories.items.length > 0);
   for (const p of Object.values(s.projects)) assert.ok(p.cover, `${p.slug} has a cover`);
 });
+
+test('embed lines can carry the film size', () => {
+  const p = parseProject('demo', '---\ntitle: T\n---\n\nhttps://vimeo.com/123 1080x1920\nhttps://youtu.be/abc\n', 'motion');
+  assert.deepEqual(p.blocks.map((b) => b.ratio), ['1080 / 1920', undefined]);
+});

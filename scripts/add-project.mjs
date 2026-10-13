@@ -64,6 +64,25 @@ for (const [i, src] of files.entries()) {
   } else await fs.copyFile(src, path.join(dir, base + ext));
   names.push(base + ext);
 }
+// Look up each film's proportions so the player fills the column like the
+// reference site (vertical and 4:3 films are common). Falls back to 16:9.
+async function withSize(url) {
+  const endpoint = /vimeo\.com/.test(url)
+    ? `https://vimeo.com/api/oembed.json?url=${encodeURIComponent(url)}`
+    : /youtu\.?be/.test(url)
+      ? `https://www.youtube.com/oembed?format=json&url=${encodeURIComponent(url)}`
+      : null;
+  try {
+    const r = endpoint && (await fetch(endpoint, { signal: AbortSignal.timeout(10_000) }));
+    if (r?.ok) {
+      const { width, height } = await r.json();
+      if (width && height) return `${url} ${width}x${height}`;
+    }
+  } catch {}
+  console.warn(`Couldn't read the size of ${url}; it will show as 16:9. Add " WIDTHxHEIGHT" after the link in index.md if that's wrong.`);
+  return url;
+}
+const videos = await Promise.all(opts.video.map(withSize));
 const cover = names.find((n) => !/\.(mp4|webm)$/.test(n));
 const md = [
   '---',
@@ -72,7 +91,7 @@ const md = [
   ...(cover ? [`cover: ${cover}`] : []),
   '---',
   '',
-  ...opts.video,
+  ...videos,
   ...names.map((n) => `![](${n})`),
   '',
 ];

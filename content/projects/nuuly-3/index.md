@@ -4,7 +4,7 @@ subtitle: Travel Edit
 cover: cover.gif
 ---
 
-https://player.vimeo.com/video/387843435?app_id=122963
+https://player.vimeo.com/video/387843435?app_id=122963 1500x1080
 ![](01.jpg)
 ![](02.jpg)
 ![](03.jpg)

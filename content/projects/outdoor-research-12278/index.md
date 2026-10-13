@@ -4,7 +4,7 @@ subtitle: YOSEMITE
 cover: cover.jpg
 ---
 
-https://player.vimeo.com/video/662100871?app_id=122963
+https://player.vimeo.com/video/662100871?app_id=122963 980x720
 ![](01.jpg)
 ![](02.jpg)
 ![](03.jpg)

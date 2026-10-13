@@ -4,7 +4,7 @@ subtitle: Dom Sessa
 cover: cover.jpg
 ---
 
-https://player.vimeo.com/video/1153772679?app_id=122963
+https://player.vimeo.com/video/1153772679?app_id=122963 1920x1080
 ![](01.jpg)
 ![](02.jpg)
 ![](03.jpg)

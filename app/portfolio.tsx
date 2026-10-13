@@ -82,7 +82,7 @@ export function Mosaic({
             className="mosaic-item"
             aria-label={
               item.href
-                ? item.caption
+                ? item.caption.replace(/\n/g, ', ')
                 : `View ${item.caption || `memory ${i + 1}`}`
             }
             onClick={() => onOpen?.(i)}
@@ -108,7 +108,7 @@ export function Mosaic({
                 }
               }}
               alt={
-                item.caption ||
+                item.caption?.replace(/\n/g, ', ') ||
                 `Memory ${i + 1} from Vivian Kim’s photo journal`
               }
               loading="lazy"
@@ -277,7 +277,7 @@ export default function Portfolio({
             kind === 'featured'
               ? '(max-width: 767px) 50vw, 38vw'
               : '(max-width: 569px) 50vw, (max-width: 880px) 33vw, 25vw',
-          caption: [p.title, p.subtitle].filter(Boolean).join(' — '),
+          caption: [p.title, p.subtitle].filter(Boolean).join('\n'),
           href: '/project/' + p.slug,
         }))}
         columns={kind === 'featured' ? 2 : 4}
@@ -408,6 +408,7 @@ export default function Portfolio({
                     ) : b.type === 'embed' ? (
                       <iframe
                         src={b.src}
+                        style={b.ratio ? { aspectRatio: b.ratio } : undefined}
                         title={p.title + ' video'}
                         loading="lazy"
                         allow="autoplay; fullscreen; picture-in-picture"

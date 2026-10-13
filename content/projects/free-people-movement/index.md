@@ -4,7 +4,7 @@ subtitle: Winter Ski '24
 cover: cover.jpg
 ---
 
-https://player.vimeo.com/video/899587217?app_id=122963
+https://player.vimeo.com/video/899587217?app_id=122963 1920x1165
 ![](01.jpg)
 ![](02.jpg)
 ![](03.jpg)

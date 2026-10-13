@@ -56,6 +56,8 @@ https://vimeo.com/123456789
 
 - Media lines render in order. `![alt](file)` is an image (or a video when the file is `.mp4`/`.webm`).
 - A YouTube or Vimeo link on a line of its own becomes an embedded player. Watch links, youtu.be links and player URLs all work.
+  Put the film's size after the link (`https://vimeo.com/123 1920x1080`) so the player fills the column at the right
+  shape. Without a size it's shown as 16:9, which letterboxes vertical or 4:3 films. `add-project` fills this in automatically.
 - `cover` is the thumbnail used on the listing pages. If it's omitted, the first image is used. It can be a file that isn't in the media list (for example `cover.jpg`).
 - Stills projects show images stacked full width. Motion projects use a 2-column grid with embeds spanning full width.
 

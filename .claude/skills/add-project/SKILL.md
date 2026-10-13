@@ -21,6 +21,8 @@ Format reference: `CLAUDE.md` (content layout) and `content/site.md`.
    node scripts/add-project.mjs --slug vogue-rose --title "Vogue" --subtitle "Ask Away with Rosé" \
      --category motion --video https://www.youtube.com/watch?v=XXXX ~/Desktop/rose-stills
    ```
+   Video links get their size looked up automatically (written as `URL 1920x1080` in `index.md`) so the player
+   fills the column at the film's real shape. If the lookup fails, find the size and add it by hand.
    This copies images in as `01.jpg, 02.jpg…` (the first is the cover), compresses them, writes `index.md`, and adds
    the slug to the **top** of the Stills or Motion list (and Featured with `--featured`). Use `--bottom` to append instead.
 4. Optional: add a description or credits as plain text lines in `index.md` above the media, or set `cover:` to
@@ -30,6 +32,8 @@ Format reference: `CLAUDE.md` (content layout) and `content/site.md`.
 
 - **Add images:** copy them into `content/projects/<slug>/` with the next numbers (`08.jpg`, `09.jpg`…), add
   `![](08.jpg)` lines to `index.md` where they should appear, then run `npm run media`.
+- **Add a film:** put the link on its own line in `index.md` followed by its size, e.g.
+  `https://vimeo.com/123456 1920x1080` (Vimeo/YouTube oEmbed gives the width and height).
 - **Reorder images:** reorder the `![](…)` lines in `index.md`.
 - **Change cover / title / subtitle:** edit the frontmatter.
 - **Feature, reorder, hide:** edit the `## Featured`, `## Stills`, `## Motion` lists in `content/site.md`. A project

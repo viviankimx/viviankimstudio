@@ -4,7 +4,7 @@ subtitle: Man vs Horse | Joe Holder
 cover: cover.jpg
 ---
 
-https://player.vimeo.com/video/903438196?app_id=122963
+https://player.vimeo.com/video/903438196?app_id=122963 1920x1172
 ![](01.jpg)
 ![](02.jpg)
 ![](03.jpg)

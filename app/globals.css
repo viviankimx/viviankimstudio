@@ -437,6 +437,9 @@ h6 {
   transition: opacity 0.2s;
   text-transform: uppercase;
 }
+.mosaic-project-caption {
+  white-space: pre-line;
+}
 .mosaic-item:hover .mosaic-project-caption,
 .mosaic-item:focus-visible .mosaic-project-caption {
   opacity: 1;
