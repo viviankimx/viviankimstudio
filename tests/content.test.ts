@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { parseMarkdown, parseProject, sections, embedUrl, getSite } from '../lib/content.ts';
+import { parseMarkdown, parseProject, sections, embedUrl, getSite, parseMemoryLine } from '../lib/content.ts';
 
 test('frontmatter and sections', () => {
   const { data, body } = parseMarkdown('---\ntitle: A: B\n---\n\n## Hero\n\nHello\n\n## Clients\n\n- X\n');
@@ -39,4 +39,11 @@ test('repository content loads and every referenced file exists', () => {
 test('embed lines can carry the film size', () => {
   const p = parseProject('demo', '---\ntitle: T\n---\n\nhttps://vimeo.com/123 1080x1920\nhttps://youtu.be/abc\n', 'motion');
   assert.deepEqual(p.blocks.map((b) => b.ratio), ['1080 / 1920', undefined]);
+});
+
+test('memories photo lines carry date and alt text', () => {
+  assert.deepEqual(parseMemoryLine('- 001.jpg | 2026-10-12 | Beach day'), ['001.jpg', 'Beach day']);
+  assert.deepEqual(parseMemoryLine('- 002.jpg | 2026-10-12 |'), ['002.jpg', '']);
+  assert.deepEqual(parseMemoryLine('- 003.jpg: Old style'), ['003.jpg', 'Old style']);
+  assert.equal(parseMemoryLine('Photos appear in filename order.'), null);
 });

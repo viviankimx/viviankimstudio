@@ -1,23 +1,29 @@
 // Adds photos to Memories, renumbering so filename order = display order.
 //
-//   node scripts/add-memories.mjs [--bottom] <image or folder>...
+//   node scripts/add-memories.mjs [--bottom] [--date YYYY-MM-DD] <image or folder>...
 //
 // New photos go to the top (newest first) unless --bottom is given. Files and
 // folders are added in the order given; folder contents are sorted by name.
-// HEIC files are converted with macOS `sips`. Run `npm run media` afterwards
-// (the script does it for you) to compress and generate variants.
+// Each new photo is logged in memories.md with its upload date (today unless
+// --date is given). HEIC files are converted with macOS `sips`. Compression
+// runs automatically at the end.
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
+import { DIR, IMAGE, today, listPhotos, readNotes, writeNotes, renumber } from './memories-lib.mjs';
 
-const DIR = 'content/memories';
-const MD = 'content/memories.md';
-const IMAGE = /\.(jpe?g|png|webp|avif|gif|tiff?|heic|heif)$/i;
-const args = process.argv.slice(2);
-const bottom = args.includes('--bottom');
-const inputs = args.filter((a) => !a.startsWith('--'));
+const inputs = [];
+let bottom = false;
+let date = today();
+for (let i = 2; i < process.argv.length; i++) {
+  const a = process.argv[i];
+  if (a === '--bottom') bottom = true;
+  else if (a === '--date') date = process.argv[++i];
+  else inputs.push(a);
+}
+if (!/^\d{4}-\d{2}-\d{2}$/.test(date || '')) throw Error('--date must look like 2026-10-12');
 if (!inputs.length) {
-  console.error('Usage: node scripts/add-memories.mjs [--bottom] <image or folder>...');
+  console.error('Usage: node scripts/add-memories.mjs [--bottom] [--date YYYY-MM-DD] <image or folder>...');
   process.exit(1);
 }
 
@@ -34,38 +40,16 @@ for (const input of inputs) {
 }
 if (!incoming.length) throw Error('No images found in the given paths.');
 
-const existing = (await fs.readdir(DIR))
-  .filter((f) => IMAGE.test(f))
-  .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
-  .map((f) => path.join(DIR, f));
-const ordered = bottom ? [...existing, ...incoming] : [...incoming, ...existing];
-const width = Math.max(3, String(ordered.length).length);
-
-// Stage everything in a temp folder first so renames can't collide.
-const tmp = path.join(DIR, '.renumber');
-await fs.rm(tmp, { recursive: true, force: true });
-await fs.mkdir(tmp);
-const renames = {};
-for (const [i, src] of ordered.entries()) {
-  const base = String(i + 1).padStart(width, '0');
-  let ext = path.extname(src).toLowerCase();
-  if (ext === '.jpeg') ext = '.jpg';
-  if (/^\.hei[cf]$/.test(ext)) {
-    execFileSync('sips', ['-s', 'format', 'jpeg', src, '--out', path.join(tmp, base + '.jpg')], { stdio: 'ignore' });
-    ext = '.jpg';
-  } else if (existing.includes(src)) await fs.rename(src, path.join(tmp, base + ext));
-  else await fs.copyFile(src, path.join(tmp, base + ext));
-  if (existing.includes(src)) renames[path.basename(src)] = base + ext;
-}
-for (const f of await fs.readdir(tmp)) await fs.rename(path.join(tmp, f), path.join(DIR, f));
-await fs.rm(tmp, { recursive: true });
-
-// Keep alt-text lines in memories.md pointing at the right photo.
-const md = await fs.readFile(MD, 'utf8');
-const next = md.replace(/^(\s*-\s+)([^:\n]+?)(:\s)/gm, (m, a, name, b) =>
-  renames[name.trim()] ? a + renames[name.trim()] + b : m,
+const existing = (await listPhotos()).map((f) => path.join(DIR, f));
+const notes = await readNotes();
+const { renamed, added } = await renumber(bottom ? [...existing, ...incoming] : [...incoming, ...existing], (src, out) =>
+  execFileSync('sips', ['-s', 'format', 'jpeg', src, '--out', out], { stdio: 'ignore' }),
 );
-if (next !== md) await fs.writeFile(MD, next);
 
-console.log(`Added ${incoming.length} photo(s) to the ${bottom ? 'bottom' : 'top'} of Memories (${ordered.length} total).`);
+const entries = new Map();
+for (const [oldName, note] of notes.entries) if (renamed.has(oldName)) entries.set(renamed.get(oldName), note);
+for (const name of added) entries.set(name, { date, alt: '' });
+await writeNotes({ head: notes.head, entries }, await listPhotos());
+
+console.log(`Added ${incoming.length} photo(s) to the ${bottom ? 'bottom' : 'top'} of Memories, dated ${date} (${existing.length + incoming.length} total).`);
 execFileSync(process.execPath, ['scripts/media.mjs'], { stdio: 'inherit' });

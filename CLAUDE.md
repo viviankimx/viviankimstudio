@@ -1,127 +1,129 @@
-# Vivian Kim Studio — editing guide for Claude Code
+# Vivian Kim Studio: site editor
 
-This is Vivian Kim's portfolio. There is no CMS: all content lives in `content/` as Markdown
-files plus image folders, and you (Claude) edit it on request. The site is a static build
-deployed on Vercel; pushing to `main` publishes it.
+This is Vivian Kim's portfolio. You are helping its owner, who is **not technical**, update the site's content
+by chatting with you. There is no CMS: content lives in `content/` as Markdown plus image folders. Pushing to
+`main` deploys to production on Vercel.
 
-When someone asks to change the site, edit `content/`, check the result, then commit and push
-(see **Publishing**). Don't touch `app/`, `lib/` or `scripts/` unless the request is about
-design or behaviour.
+**Live site:** https://viviankimstudio.vercel.app (moving to https://www.viviankimstudio.com once the domain is
+pointed at Vercel; use whichever is live).
 
-## Content layout
+## Guardrails (always apply)
+
+### What you may do
+
+Only these kinds of changes:
+
+1. **Homepage (Featured page):** the header copy, the Select Clients list, and which projects appear under
+   Featured Work and in what order → skill `update-featured`.
+2. **Stills and Motion projects:** add, update, hide or remove them, including images, Vimeo links and order
+   → skill `manage-projects`.
+3. **Memories:** add, remove or reorder photos → skill `manage-memories`.
+4. **Publishing** those changes → skill `publish-site`; **first-time setup** → skill `setup`.
+
+All edits happen inside `content/`, using the scripts in `scripts/` where one exists (they compress images,
+renumber files and keep lists consistent). A hook (`.claude/hooks/guard.mjs`) blocks file edits outside
+`content/` and risky Git/shell commands.
+
+### What you must not do
+
+Don't change the site's code, design, layout, fonts, navigation, footer, page structure, build or deploy
+settings, dependencies, these instructions, the skills or the hook. Don't touch `app/`, `lib/`, `scripts/`,
+`components/`, `public/`, `package*.json`, `vercel.json`, `next.config.ts`, `vite.config.ts`, `tsconfig.json`,
+`tests/`, `.claude/` or this file. Don't force-push, rewrite history or delete branches.
+
+If the user asks for something outside the list, say kindly, in plain words, that this setup only handles
+homepage copy, clients, featured work, Stills, Motion and Memories, and that **Eric (the site's developer)** can
+help with anything else. Offer to write a short note describing what they want so they can send it to him.
+Don't attempt a workaround.
+
+### Required details for new content
+
+Never add content with missing details. Ask for what's missing in one short, friendly message:
+
+- **Stills project:** title (client/brand), client/subtitle (talent, campaign or publication), images.
+- **Motion project:** title, client/subtitle, **Vimeo link** (or YouTube), optional stills.
+- **Memories:** the photos.
+- **Upload date:** use the date the user gives; otherwise **default to today automatically** without asking.
+- A subtitle may be empty only if the user confirms there isn't one. Never invent titles, clients or links.
+
+### Compression (always)
+
+Every image added must be compressed before it's committed. The scripts do this automatically; after any
+manual image change run `npm run media`. Settings, chosen to keep photographic quality: longest edge **2400px**,
+JPEG quality **82** (mozjpeg), PNG/TIFF photos converted to JPEG, transparent images to WebP, iPhone HEIC
+converted via `sips`. GIFs are kept as they are. Images over 1.5 MB after this are a sign something was skipped.
+Never commit raw camera files.
+
+### No-fuss experience
+
+- Speak plainly. Don't show commands, file paths or Git terms unless the user asks.
+- When the user asks to update the site, publish, push, deploy, or says they're done, **publish immediately
+  following `publish-site`**: check, commit, merge with the latest `main`, push and confirm. Don't ask
+  for permission or extra confirmation.
+- After each change, tell them in a sentence or two what changed and when it'll be live (about 3–5 minutes).
+- Only stop to ask when you need a required detail or a real decision (e.g. which of two similar projects they mean).
+
+## Content reference
 
 ```
 content/
-  site.md               homepage copy, navigation, clients, footer, and ALL project ordering
-  hero.mp4              homepage showreel (keep under ~10 MB)
-  hero-poster.jpg       still shown before the showreel loads
-  memories.md           Memories page title and optional alt text
-  memories/             Memories photos, shown in filename order (001.jpg first)
+  site.md               homepage copy, clients, footer, and ALL project lists (Featured, Stills, Motion)
+  hero.mp4, hero-poster.jpg   homepage showreel (not editable through this setup)
+  memories.md           Memories title + one line per photo: `- 001.jpg | 2026-10-12 | alt text`
+  memories/             Memories photos, shown in filename order (001 first)
   projects/<slug>/
-    index.md            one project: title, subtitle, cover, description and media list
-    01.jpg, 02.jpg …    that project's images
+    index.md            one project
+    01.jpg, 02.jpg …    its images (first = cover unless `cover:` says otherwise)
 ```
 
-The project URL is `/project/<slug>`, where the slug is the folder name: lowercase letters,
-numbers and hyphens only.
+### site.md sections
 
-### site.md
-
-Frontmatter: `email`, `instagram`, `location` (footer), `hero_video`, `hero_poster` (files in `content/`).
-Sections, each beginning with `## Name`:
-
-- **Hero** — the homepage paragraph. Line breaks are kept on wide screens.
-- **Navigation** — `- [Label](/link)`. The first item is the studio name at top left; the last item sits at top right.
-- **Clients** — one per line, `- Name`. Displayed in this order, separated by " / ".
-- **Featured** — project slugs shown on the homepage, in order. Each must also appear under Stills or Motion.
-- **Stills** / **Motion** — project slugs in display order. **The list a project is in sets its
-  category. A project folder that isn't listed anywhere is hidden** (use this for drafts).
+- `## Hero`: homepage paragraph; each line is a line on wide screens.
+- `## Navigation`: not editable through this setup.
+- `## Clients`: `- Name`, alphabetical (ignoring "The"), shown uppercase separated by " / ".
+- `## Featured`: project slugs shown on the homepage, in order; each must also be under Stills or Motion.
+- `## Stills` / `## Motion`: project slugs in display order. The list sets the category; a project in neither is hidden.
 
 ### projects/<slug>/index.md
 
 ```markdown
 ---
-title: ISLAND TIME
-subtitle: BY VIVIAN KIM
-cover: 01.jpg
+title: Vogue
+subtitle: GRWM | Jennie Kim
+cover: cover.jpg
+date: 2026-10-12
 ---
 
-Optional description or credits. Any plain text line is treated as description.
+Optional description or credits (plain text lines).
 
+https://vimeo.com/123456789 1920x1080
 ![](01.jpg)
 ![Optional alt text](02.jpg)
-![](clip.mp4)
-https://vimeo.com/123456789
 ```
 
-- Media lines render in order. `![alt](file)` is an image (or a video when the file is `.mp4`/`.webm`).
-- A YouTube or Vimeo link on a line of its own becomes an embedded player. Watch links, youtu.be links and player URLs all work.
-  Put the film's size after the link (`https://vimeo.com/123 1920x1080`) so the player fills the column at the right
-  shape. Without a size it's shown as 16:9, which letterboxes vertical or 4:3 films. `add-project` fills this in automatically.
-- `cover` is the thumbnail used on the listing pages. If it's omitted, the first image is used. It can be a file that isn't in the media list (for example `cover.jpg`).
-- Stills projects show images stacked full width. Motion projects use a 2-column grid with embeds spanning full width.
+- Lines render in order: `![alt](file)` is an image (or video for `.mp4`/`.webm`); a Vimeo/YouTube link on its own
+  line is a player, followed by the film's size so the player has the right shape (16:9 if omitted).
+- `date` is the upload date (not shown on the site).
+- Slugs: lowercase letters, numbers and hyphens; the URL is `/project/<slug>`.
 
-### Memories
+## Scripts
 
-Drop photos into `content/memories/`. Order is by filename, sorted naturally, so to put a new
-photo first, name it so it sorts before `001` (e.g. `000.jpg`) or renumber. To renumber, rename
-the files; don't edit Markdown. Alt text is optional: add `- 001.jpg: description` lines to `memories.md`.
+| Task | Command |
+|---|---|
+| New project | `node scripts/add-project.mjs --slug … --title … --subtitle … --category stills\|motion [--video URL] [--featured] [--date YYYY-MM-DD] <images>` |
+| Hide / delete project | `node scripts/remove-project.mjs <slug> [--delete]` |
+| Add Memories | `node scripts/add-memories.mjs [--date YYYY-MM-DD] [--bottom] <images or folder>` |
+| Remove Memories | `node scripts/remove-memories.mjs <number>...` |
+| Move a Memory | `node scripts/move-memory.mjs <number> <new position>` |
+| Compress after manual image changes | `npm run media` |
+| Validate everything | `npm run check` |
+| Preview locally | `npm run dev` → http://127.0.0.1:3000 |
 
-## Images: always compress
+If `npm run check` fails, fix the content it points to. Never change code to make it pass.
 
-Run `npm run media` after adding or replacing images. It:
-- resizes any photo over 2400px on the long edge, re-encodes large JPEGs at quality 82, and turns
-  PNG/TIFF photos into `.jpg` (it updates `![](…)` and `cover:` references to the new name).
-  Transparent images become `.webp`. GIFs are left alone.
-- mirrors `content/` into `public/media/` (git-ignored) with 640/1280px WebP variants for responsive loading.
+## For developers
 
-`npm run dev` and `npm run build` run it automatically, and the dev server re-runs it whenever a file in
-`content/` changes. Commit the compressed files in `content/`, never raw camera files.
-Keep the repository lean: images in `content/` should almost always be under 1.5 MB.
-
-iPhone HEIC files aren't supported. Convert them first on macOS:
-`sips -s format jpeg photo.heic --out photo.jpg`.
-
-When a user gives you images (a folder path, Downloads, attachments saved to disk), copy them into
-the right folder with clean sequential names (`01.jpg`, `02.jpg`, …), then run `npm run media`.
-
-## Common requests
-
-Project skills in `.claude/skills/` cover the usual jobs; use them:
-- **`add-memories`**: upload photos to Memories (`node scripts/add-memories.mjs [--bottom] <files or folder>`).
-  It renumbers, converts HEIC, and compresses.
-- **`add-project`**: create a Stills/Motion project from a folder of images
-  (`node scripts/add-project.mjs --slug … --title … --category stills|motion [--featured] [--video URL] <images>`),
-  or update, reorder, feature or hide existing ones.
-- **`publish-site`**: verify, commit and push so Vercel deploys.
-
-Small copy changes (hero text, clients, footer, titles) are direct Markdown edits.
-
-## Checking your work
-
-```bash
-npm run check     # content + compression check, type check, tests
-npm run dev       # http://127.0.0.1:3000 with live reload
-npm run build && npm run preview   # the exact static site Vercel will serve
-```
-
-If the content is wrong, `npm run build` fails with a specific message (a missing file, an unknown slug in site.md, and so on).
-Fix the message rather than working around it. Look at the changed pages in a browser before publishing.
-
-## Publishing
-
-Vercel is connected to the GitHub repo `viviankimx/viviankimstudio`:
-- push to `main` publishes to production (takes a few minutes)
-- push any other branch to get a preview URL first
-
-Before pushing: run `npm run check` and confirm with the user what's about to go live, summarising
-the changes. Commit with a plain message describing the content change (e.g. "Add 12 photos to Memories").
-Never force-push `main`.
-
-## Project facts
-
-- Static export (vinext, a Next.js-compatible framework on Vite): `next.config.ts` has `output: 'export'`, and the build goes to `dist/client`.
-- Vercel settings live in `vercel.json`. No environment variables or server are needed.
-- Requires Node 22.13+. Setup: `npm ci`.
-- The old Appwrite CMS is archived on the git tag/branch `archive/cms-appwrite`. Don't revive it.
-- The original, uncompressed imported media is not in git (a backup was kept outside the repo).
+The guardrails are meant for content editing sessions. Developers changing code can turn the hook off for their
+own machine by adding `"env": { "VK_SITE_DEVELOPER": "1" }` to `.claude/settings.local.json` (git-ignored).
+Developer notes: static export via vinext (`output: 'export'`, built to `dist/client`); `lib/content.ts` reads
+`content/`; `scripts/media.mjs` makes the responsive images; the old Appwrite CMS is on the `archive/cms-appwrite` branch.
