@@ -89,7 +89,11 @@ async function renameReferences(dir, from, to) {
     } catch {
       continue;
     }
-    const next = text.replaceAll(`(${from})`, `(${to})`).replaceAll(`: ${from}`, `: ${to}`);
+    const next = text
+      .replaceAll(`(${from})`, `(${to})`)
+      .replaceAll(`: ${from}`, `: ${to}`)
+      .replaceAll(`- ${from} |`, `- ${to} |`)
+      .replaceAll(`- ${from}:`, `- ${to}:`);
     if (next !== text) await fs.writeFile(md, next);
   }
 }

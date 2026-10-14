@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Edit(content/**)",
+      "Write(content/**)",
+      "Bash(node scripts/add-project.mjs:*)",
+      "Bash(node scripts/remove-project.mjs:*)",
+      "Bash(node scripts/add-memories.mjs:*)",
+      "Bash(node scripts/remove-memories.mjs:*)",
+      "Bash(node scripts/move-memory.mjs:*)",
+      "Bash(node scripts/media.mjs:*)",
+      "Bash(npm run media:*)",
+      "Bash(npm run check:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm run dev:*)",
+      "Bash(npm run preview:*)",
+      "Bash(npm test:*)",
+      "Bash(npm ci)",
+      "Bash(sips:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git add content:*)",
+      "Bash(git commit:*)",
+      "Bash(git fetch:*)",
+      "Bash(git pull --rebase:*)",
+      "Bash(git rebase --continue)",
+      "Bash(git rebase --abort)",
+      "Bash(git switch main)",
+      "Bash(git push origin HEAD:main)",
+      "Bash(git push --dry-run origin HEAD:main)",
+      "Bash(git rev-parse:*)",
+      "Bash(gh auth status:*)",
+      "Bash(gh auth setup-git)",
+      "Bash(gh api repos/viviankimx/viviankimstudio/commits/:*)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit|NotebookEdit|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/guard.mjs\""
+          }
+        ]
+      }
+    ]
+  }
+}

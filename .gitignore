@@ -10,3 +10,4 @@ public/media/
 .vercel/
 .next/
 .vinext/
+.claude/settings.local.json

@@ -142,6 +142,13 @@ function mediaUrl(rel: string, manifest: Record<string, Media>, where: string) {
   return { url, media: manifest[url] };
 }
 
+// Memories photo lines: `- 001.jpg | 2026-10-12 | alt text` (or the older
+// `- 001.jpg: alt text`). Returns [file, alt] or null for other lines.
+export function parseMemoryLine(line: string): [string, string] | null {
+  const m = /^\s*-\s+([^\s|:]+\.\w+)\s*(?:\|[^|]*(?:\|\s*(.*))?|:\s*(.*))$/.exec(line);
+  return m ? [m[1], (m[2] ?? m[3] ?? '').trim()] : null;
+}
+
 let cache: Site | undefined;
 export function getSite(): Site {
   if (cache) return cache;
@@ -194,9 +201,8 @@ export function getSite(): Site {
   const captions = Object.fromEntries(
     mem.body
       .split('\n')
-      .map((l) => /^\s*-\s+([^:]+):\s*(.+)$/.exec(l))
-      .filter((m): m is RegExpExecArray => !!m)
-      .map((m) => [m[1].trim(), m[2].trim()]),
+      .map(parseMemoryLine)
+      .filter((x): x is [string, string] => !!x),
   );
   const items = readdirSync(path.join(contentDir, 'memories'))
     .filter((f) => IMAGE.test(f))

@@ -6,27 +6,30 @@ tells Claude how the content works and how to publish.
 
 ## Editing with Claude Code
 
+This repo is set up so the site owner can edit content by chatting with Claude Code, with no technical steps.
+
+- **Setup guide for Vivian (non-technical):** https://claude.ai/artifact/2gek65oXobRTctmVGLGYuj
+  (private until shared from its Share menu). In short: Claude desktop app → GitHub Desktop clone →
+  Node.js installer → open the folder in the Code tab → say "Set me up".
+- **Guardrails:** `CLAUDE.md` limits sessions to homepage copy, Select Clients, Featured Work, and
+  Stills/Motion/Memories content, requires complete details for new content (title, client/subtitle,
+  Vimeo link for Motion, date defaulting to today), always compresses images, and publishes straight to
+  `main` when asked. `.claude/hooks/guard.mjs` enforces it: file edits outside `content/`, force-pushes,
+  package installs and similar are blocked. `.claude/settings.json` pre-approves the routine commands so
+  there are no permission prompts for them.
+- **Skills** (`.claude/skills/`): `setup`, `update-featured`, `manage-projects`, `manage-memories`, `publish-site`.
+- **Developers:** turn the guard off on your own machine with
+  `{ "env": { "VK_SITE_DEVELOPER": "1" } }` in `.claude/settings.local.json` (git-ignored).
+
+Content scripts (all compress images automatically):
+
 ```bash
-git clone https://github.com/viviankimx/viviankimstudio.git
-cd viviankimstudio
-npm ci
-claude
-```
-
-Then ask things like:
-- "Add the photos in ~/Downloads/tokyo to the top of Memories"
-- "Create a new Stills project called SUMMER for Self-Service from ~/Desktop/summer, and feature it first"
-- "Move the Vogue Jennie project to the top of Motion"
-- "Change the footer location to 'based in NYC'"
-- "Publish it"
-
-Claude uses the project skills in `.claude/skills/` (`add-memories`, `add-project`, `publish-site`). It
-compresses new images, checks the build, shows you the result, and pushes to `main` when you confirm.
-Vercel then deploys automatically. You can also run the scripts yourself:
-
-```bash
-node scripts/add-memories.mjs ~/Downloads/tokyo
+node scripts/add-memories.mjs [--date YYYY-MM-DD] [--bottom] ~/Downloads/tokyo
+node scripts/remove-memories.mjs 3
+node scripts/move-memory.mjs 45 1
 node scripts/add-project.mjs --slug nike-air-max --title "NIKE" --subtitle "Air Max" --category stills --featured ~/Desktop/airmax
+node scripts/add-project.mjs --slug vogue-rose --title "Vogue" --subtitle "Ask Away with Rosé" --category motion --video https://vimeo.com/123 ~/Desktop/rose
+node scripts/remove-project.mjs <slug> [--delete]
 ```
 
 ## Editing by hand
