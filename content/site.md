@@ -8,10 +8,7 @@ hero_poster: hero-poster.jpg
 
 ## Hero
 
-Vivian Kim is a director and photographer, based in New York and Los Angeles.
-Her work looks like: city and tropics, supermodels and surfers, peace and play.
-She is inspired by nature, everyday interactions, and a spirit of recklessness —
-informing her raw and youthful style, and mixed media approach.
+Vivian Kim is a director and photographer based in New York and Los Angeles.
 
 ## Navigation
 
@@ -30,41 +27,36 @@ informing her raw and youthful style, and mixed media approach.
 - alo
 - anheuser busch
 - APPLE
+- Balenciaga
 - Casamigos
 - Condé Nast
-- COS
 - CONVERSE
-- EQUINOX
 - free people
 - GAP
 - gq magazine
 - HIGHSNOBIETY
-- HOKA
 - HYPEBEAST
+- I-D
 - Interscope Records
-- Lee Jeans
-- LULULEMON
-- muse magazine
+- Levi's
 - Nike
-- the north face
-- Office Magazine
-- Quiksilver
 - RALPH LAUREN
 - Red Bull
-- REEBOK
-- roxy
 - Sonos
 - Soundcloud
 - stella artois
 - tory burch
-- URBN
 - VANS
 - Vogue Magazine
-- Who What Wear
-- Wrangler
+- YSL
 
 ## Featured
 
+- ysl-hb
+- balenciaga-summer-27
+- jennie-3
+- hanna
+- mcqueen-ss26
 - island-time
 - grwm-jennie-kim
 - nike-2
@@ -75,28 +67,29 @@ informing her raw and youthful style, and mixed media approach.
 - nike-x-ambush
 - joe-holder-for-gq
 - adidas-originals-4
-- toyota-mark-ii
 - vuori-kg
 - jeo-jeolo---loco
 - nike-dance
-- vuori
-- vogue
 - ours-wellness
-- free-people-movement
 
 ## Stills
 
+- island-time
+- balenciaga-summer-27-stills
+- jennie-3
+- hume-dry-body-oil
 - nars
+- hanna
+- dre-yulu
+- nautica-for-her
+- joe-holder-for-gq
 - adidas-originals-x-willy-chavarria-2
 - bloom-2
 - adidas-originals-x-thug-club-2
-- island-time
-- jennie-3
-- dre-yulu
+- vanity-fair-margaret-qualley
 - queens-house
 - nike-holiday-25
-- hanna
-- nautica-for-her
+- september-issue-merde
 - nike-4
 - tonoia
 - vuori-kg-stills
@@ -108,6 +101,7 @@ informing her raw and youthful style, and mixed media approach.
 - adidas-originals-6
 - paly-hollywood
 - porsche-hs
+- vuori-fa26
 - nike-x-ambush
 - new-balance
 - nike-2
@@ -119,17 +113,14 @@ informing her raw and youthful style, and mixed media approach.
 - nike-x-highsnobiety
 - office
 - vuori-2
-- joe-holder-for-gq
 - jennie-kim
 - dua-lipa
-- quinn-2
 - nike-nyfw-2
 - adidas
 - new-york-lovers
 - adidas-originals-4
 - annie
 - skateboys
-- coach-2
 - gap-x-demit
 - katriel
 - jenevieve
@@ -141,7 +132,6 @@ informing her raw and youthful style, and mixed media approach.
 - manny-nati
 - collage3
 - toyota-mark-ii
-- vans-x-office
 - adidas-originals-book
 - adidas-2
 - stella-artois
@@ -151,22 +141,20 @@ informing her raw and youthful style, and mixed media approach.
 - hoka-one-one
 - tory-burch
 - june---mike-sabath-2
-- sorel
 - nike
 - nike-nyfw-3
-- dallas
-- mcxjesse
 - soundcloud
 
 ## Motion
 
+- balenciaga-summer-27
 - vuori-x-kirsty
-- vuori-x-colston
-- adidas-originals-x-willy-chavarria
 - bloom
 - danielle-guizio
 - deb-never
 - adidas-originals-x-thug-club
+- vuori-x-colston
+- adidas-originals-x-willy-chavarria
 - kolon-sport
 - mcqueen-ss26
 - adidas-evo-sl
@@ -175,6 +163,8 @@ informing her raw and youthful style, and mixed media approach.
 - ysl-lb
 - therapuss-s3-trailer
 - a-rabbits-foot
+- nautica-for-her-2
+- gq
 - vuori-3
 - vans-2
 - vogue-ask-away-with-rose
@@ -189,14 +179,11 @@ informing her raw and youthful style, and mixed media approach.
 - coach-x-wnba
 - jennie-2
 - vogue-japan
-- nautica-for-her-2
 - lego-x-pharrell
 - june---mike-sabath
-- red-bull-tv
 - vogue-6
 - vogue-7
 - nike-dance
-- gq
 - vuori
 - adidas-27295
 - vogue-24emma
@@ -205,11 +192,9 @@ informing her raw and youthful style, and mixed media approach.
 - ours-wellness
 - free-people-movement
 - grwm-jennie-kim
-- free-people-x-us-ski-team
 - free-people-x-sanni
 - nuuly-3
 - outdoor-research-12278
 - yellow-days
 - airbnb
 - nully
-- nuuly-b0791

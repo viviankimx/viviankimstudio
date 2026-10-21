@@ -1,6 +1,6 @@
 ---
-title: adidas Originals x Thug Club
-subtitle: 
+title: ADIDAS ORIGINALS
+subtitle: THUG CLUB
 cover: cover.jpg
 ---
 

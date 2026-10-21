@@ -1,6 +1,6 @@
 ---
 title: Vogue
-subtitle: LIL | ZENDAYA
+subtitle: LIFE IN LOOKS — ZENDAYA
 cover: cover.jpg
 ---
 

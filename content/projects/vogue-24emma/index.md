@@ -1,6 +1,6 @@
 ---
 title: Vogue
-subtitle: 24 Hours | Emma Chamberlain
+subtitle: 24 Hours — Emma Chamberlain
 cover: cover.jpg
 ---
 

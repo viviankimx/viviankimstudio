@@ -1,6 +1,6 @@
 ---
-title: LEGO x Pharrell
-subtitle: Hypebeast
+title: LEGO
+subtitle: PHARRELL
 cover: 01.jpg
 ---
 

@@ -1,6 +1,6 @@
 ---
-title: GQ Magazine
-subtitle: Joe Holder
+title: GQ MAGAZINE
+subtitle: JOE HOLDER
 cover: 01.jpg
 ---
 

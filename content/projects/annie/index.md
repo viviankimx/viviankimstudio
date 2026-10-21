@@ -1,6 +1,6 @@
 ---
-title: Annie in venice
-subtitle: 
+title: ANNIE
+subtitle: VENICE, CA
 cover: 01.jpg
 ---
 

@@ -1,6 +1,6 @@
 ---
-title: Vuori x Colston
-subtitle: 
+title: VUORI
+subtitle: COLSTON LOVELAND
 cover: cover.jpg
 ---
 

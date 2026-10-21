@@ -1,6 +1,6 @@
 ---
-title: "June" - Mike Sabath
-subtitle: Music Video
+title: MIKE SABATH
+subtitle: "JUNE" MV
 cover: cover.jpg
 ---
 

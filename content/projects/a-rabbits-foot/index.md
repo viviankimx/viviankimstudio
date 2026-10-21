@@ -1,6 +1,6 @@
 ---
 title: a rabbits foot
-subtitle: Dom Sessa
+subtitle: Dominic Sessa
 cover: cover.jpg
 ---
 

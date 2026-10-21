@@ -1,6 +1,6 @@
 ---
-title: Vuori x Kirsty
-subtitle: 
+title: VUORI
+subtitle: KIRSTY GODSO
 cover: cover.jpg
 ---
 

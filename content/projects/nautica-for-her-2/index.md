@@ -1,6 +1,6 @@
 ---
-title: Nautica For Her
-subtitle: Fragrance Launch
+title: Nautica
+subtitle: FRAGRANCE LAUNCH
 cover: cover.jpg
 ---
 

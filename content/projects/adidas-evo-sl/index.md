@@ -1,6 +1,6 @@
 ---
-title: adidas EVO SL
-subtitle: Highsnobiety
+title: ADIDAS
+subtitle: EVO SL
 cover: cover.jpg
 ---
 

@@ -1,6 +1,6 @@
 ---
-title: Kolon Sport
-subtitle: Steven Yeun for Kolon Sport SS26
+title: KOLON SPORT
+subtitle: SS26 — STEVEN YEUN
 cover: cover.jpg
 ---
 

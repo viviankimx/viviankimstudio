@@ -1,6 +1,6 @@
 ---
-title: LILY MEOLA - GOT YOUR WAY
-subtitle: Music Video
+title: LILY MEOLA
+subtitle: "GOT YOUR WAY" MV
 cover: cover.jpg
 ---
 

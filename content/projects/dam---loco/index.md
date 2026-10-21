@@ -1,6 +1,6 @@
 ---
-title: "DAM" - LOCO
-subtitle: Visualizer
+title: LOCO
+subtitle: "DAM" VISUALIZER
 cover: cover.jpg
 ---
 

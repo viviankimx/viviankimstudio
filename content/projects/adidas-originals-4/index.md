@@ -1,6 +1,6 @@
 ---
-title: Adidas Originals
-subtitle: WorldCup Collection
+title: ADIDAS ORIGINALS
+subtitle: WORLD CUP COLLECTION
 cover: 01.jpg
 ---
 

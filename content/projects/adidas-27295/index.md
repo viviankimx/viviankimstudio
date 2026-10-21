@@ -1,6 +1,6 @@
 ---
 title: adidas
-subtitle: APAHM | Survival Arts
+subtitle: APAHM — Survival Arts
 cover: cover.jpg
 ---
 

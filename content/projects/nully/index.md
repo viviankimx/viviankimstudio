@@ -1,6 +1,6 @@
 ---
-title: Nuuly
-subtitle: Winter '21
+title: NUULY
+subtitle: WINTER 2021
 cover: cover.jpg
 ---
 

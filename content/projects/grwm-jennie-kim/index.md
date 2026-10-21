@@ -1,6 +1,6 @@
 ---
 title: Vogue
-subtitle: GRWM | Jennie Kim
+subtitle: MET GALA — JENNIE
 cover: cover.jpg
 ---
 

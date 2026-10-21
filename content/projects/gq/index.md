@@ -1,6 +1,6 @@
 ---
-title: GQ Magazine
-subtitle: Man vs Horse | Joe Holder
+title: GQ MAGAZINE
+subtitle: "MAN VS HORSE" FT. JOE HOLDER
 cover: cover.jpg
 ---
 

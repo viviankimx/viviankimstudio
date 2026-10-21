@@ -1,6 +1,6 @@
 ---
-title: Nike
-subtitle: Style in Dance
+title: NIKE
+subtitle: STYLE IN DANCE
 cover: cover.jpg
 ---
 

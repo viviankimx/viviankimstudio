@@ -1,6 +1,6 @@
 ---
 title: Deb Never
-subtitle: All the Time MV
+subtitle: "ALL THE TIME" MV
 cover: cover.jpg
 ---
 

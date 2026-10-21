@@ -1,6 +1,6 @@
 ---
-title: Free People x Sanni
-subtitle: Spring 2022
+title: FREE PEOPLE
+subtitle: SPRING 2022
 cover: cover.jpg
 ---
 

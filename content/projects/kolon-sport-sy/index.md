@@ -1,6 +1,6 @@
 ---
-title: Kolon Sport
-subtitle: Steven Yeun
+title: KOLON SPORT
+subtitle: FW25 — STEVEN YEUN
 cover: cover.jpg
 ---
 

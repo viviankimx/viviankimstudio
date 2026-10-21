@@ -1,6 +1,6 @@
 ---
 title: Vogue
-subtitle: Ask Away | Rosé
+subtitle: Ask Away — Rosé
 cover: cover.jpg
 ---
 

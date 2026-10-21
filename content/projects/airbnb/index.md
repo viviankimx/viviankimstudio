@@ -1,6 +1,6 @@
 ---
 title: AIRBNB
-subtitle: "AMAZING POOLS" KOREA
+subtitle: "AMAZING POOLS"
 cover: cover.jpg
 ---
 

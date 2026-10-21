@@ -1,6 +1,6 @@
 ---
-title: Adidas Originals
-subtitle: Willy Chavarria compton cowboys
+title: ADIDAS ORIGINALS
+subtitle: COMPTON COWBOYS
 cover: 01.jpg
 ---
 

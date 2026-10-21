@@ -176,6 +176,20 @@ h2 {
   border: 0;
   display: block;
 }
+/* Two vertical films side by side on one full-width row. */
+.embed-pair {
+  grid-column: 1/-1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2vw;
+  align-items: start;
+}
+.embed-pair .embed-block {
+  grid-column: auto;
+}
+.project-detail.stack .embed-pair {
+  margin-bottom: 2vw;
+}
 .back-link {
   text-transform: uppercase;
 }
@@ -420,8 +434,8 @@ h6 {
   font-size: 14px;
   line-height: 1.25;
 }
-.motion-listing .card-label span + span::before {
-  content: ' ';
+.motion-listing .card-label span + span:not(:empty)::before {
+  content: ' — ';
 }
 .mosaic-project-caption {
   position: absolute;

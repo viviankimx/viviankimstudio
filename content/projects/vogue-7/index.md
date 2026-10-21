@@ -1,6 +1,6 @@
 ---
 title: Vogue
-subtitle: In the Bag | Bella Hadid
+subtitle: In the Bag — Bella Hadid
 cover: cover.jpg
 ---
 

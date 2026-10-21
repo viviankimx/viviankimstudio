@@ -1,6 +1,6 @@
 ---
-title: Hypebeast
-subtitle: LEGO x Star Wars
+title: LEGO
+subtitle: STAR WARS
 cover: cover.jpg
 ---
 

@@ -1,6 +1,6 @@
 ---
-title: Adidas Originals x Willy Chavarria
-subtitle: Love Prevails
+title: ADIDAS ORIGINALS
+subtitle: WILLY CHAVARRIA — LOVE PREVAILS
 cover: cover.jpg
 ---
 

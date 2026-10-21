@@ -1,6 +1,6 @@
 ---
-title: NORTH SHORE GIRL
-subtitle: 
+title: KATRIEL
+subtitle: NS, OAHU
 cover: 01.jpg
 ---
 

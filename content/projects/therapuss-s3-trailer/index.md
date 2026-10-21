@@ -1,6 +1,6 @@
 ---
-title: Therapuss S3 Trailer
-subtitle: 
+title: THERAPUSS
+subtitle: NETFLIX TRAILER
 cover: cover.jpg
 ---
 

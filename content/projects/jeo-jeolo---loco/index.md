@@ -1,6 +1,6 @@
 ---
-title: "JEO JEOLO" - LOCO
-subtitle: Visualizer
+title: LOCO
+subtitle: "JEO JEOLO" VISUALIZER
 cover: cover.jpg
 ---
 

@@ -1,6 +1,6 @@
 ---
-title: MCQUEEN ss26
-subtitle: Beyond Noise Magazine
+title: MCQUEEN
+subtitle: SS26
 cover: cover.jpg
 ---
 

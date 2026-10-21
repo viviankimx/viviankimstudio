@@ -1,6 +1,6 @@
 ---
-title: Coach x WNBA
-subtitle: Paige Bueckers
+title: COACH
+subtitle: PAIGE BUECKERS
 cover: cover.jpg
 ---
 

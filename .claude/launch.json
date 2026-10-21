@@ -3,13 +3,13 @@
   "configurations": [
     {
       "name": "vk-dev",
-      "runtimeExecutable": "/opt/homebrew/bin/node",
+      "runtimeExecutable": "node",
       "runtimeArgs": ["node_modules/vinext/dist/cli.js", "dev", "--port", "3000"],
       "port": 3000
     },
     {
       "name": "vk-static",
-      "runtimeExecutable": "/opt/homebrew/bin/node",
+      "runtimeExecutable": "node",
       "runtimeArgs": ["scripts/preview.mjs", "3000"],
       "port": 3000
     }

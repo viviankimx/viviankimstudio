@@ -1,6 +1,6 @@
 ---
-title: Nike
-subtitle: This is Winning Basketball
+title: NIKE
+subtitle: "THIS IS WINNING BASKETBALL"
 cover: cover.jpg
 ---
 

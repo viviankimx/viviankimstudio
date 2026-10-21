@@ -1,6 +1,6 @@
 ---
 title: NARS
-subtitle: 2026 Campaign
+subtitle: 2026 SOCIAL
 cover: 01.jpg
 ---
 

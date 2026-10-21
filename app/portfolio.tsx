@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
-import type { PageContent, Project } from '@/lib/content';
+import type { Block, PageContent, Project } from '@/lib/content';
 export function Mosaic({
   items,
   columns = 4,
@@ -214,6 +214,59 @@ function HeroFilm({ src, poster }: { src: string; poster: string }) {
     />
   );
 }
+const isTallEmbed = (b: Block) => {
+  if (b.type !== 'embed' || !b.ratio) return false;
+  const [w, h] = b.ratio.split('/').map(Number);
+  return h > w;
+};
+// Two vertical films in a row share one full-width row instead of stacking.
+function pairTallEmbeds(blocks: Block[]) {
+  const groups: { b: Block; i: number }[][] = [];
+  for (let i = 0; i < blocks.length; i++) {
+    if (isTallEmbed(blocks[i]) && i + 1 < blocks.length && isTallEmbed(blocks[i + 1])) {
+      groups.push([{ b: blocks[i], i }, { b: blocks[i + 1], i: i + 1 }]);
+      i++;
+    } else groups.push([{ b: blocks[i], i }]);
+  }
+  return groups;
+}
+function renderBlock(p: Project, b: Block, i: number) {
+  return (
+    <figure
+      className={b.type === 'embed' || b.type === 'video' ? 'embed-block' : ''}
+      key={i}
+    >
+      {b.type === 'image' ? (
+        <img
+          src={b.src}
+          srcSet={b.media?.srcSet}
+          sizes={
+            p.category === 'motion'
+              ? '(max-width: 767px) 50vw, 25vw'
+              : '(max-width: 767px) 100vw, (max-width: 991px) 52vw, 42vw'
+          }
+          width={b.media?.width}
+          height={b.media?.height}
+          decoding="async"
+          alt={b.caption || `${p.title}, image ${i + 1}`}
+          loading={i === 0 ? 'eager' : 'lazy'}
+        />
+      ) : b.type === 'embed' ? (
+        <iframe
+          src={b.src}
+          style={b.ratio ? { aspectRatio: b.ratio } : undefined}
+          title={p.title + ' video'}
+          loading="lazy"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowFullScreen
+        />
+      ) : b.type === 'video' ? (
+        <video src={b.src} controls playsInline preload="metadata" />
+      ) : null}
+      {b.caption && <figcaption>{b.caption}</figcaption>}
+    </figure>
+  );
+}
 export default function Portfolio({
   content: c,
   route = '',
@@ -226,7 +279,7 @@ export default function Portfolio({
     if (reduced.matches || !('IntersectionObserver' in window)) return;
     const nodes = Array.from(
       document.querySelectorAll<HTMLElement>(
-        '.hero h1, .hero video, .clients > *, .featured > h2, .project-listing > h1, .memory-intro > h1, main .mosaic-item, main .project-card, .project-detail > h1, .project-description, .project-blocks > figure, footer > *',
+        '.hero h1, .hero video, .clients > *, .featured > h2, .project-listing > h1, .memory-intro > h1, main .mosaic-item, main .project-card, .project-detail > h1, .project-description, .project-blocks > figure, .embed-pair > figure, footer > *',
       ),
     );
     const observer = new IntersectionObserver(
@@ -381,50 +434,15 @@ export default function Portfolio({
                 <p className="project-description">{p.description}</p>
               )}
               <div className="project-blocks">
-                {p.blocks.map((b, i) => (
-                  <figure
-                    className={
-                      b.type === 'embed' || b.type === 'video'
-                        ? 'embed-block'
-                        : ''
-                    }
-                    key={i}
-                  >
-                    {b.type === 'image' ? (
-                      <img
-                        src={b.src}
-                        srcSet={b.media?.srcSet}
-                        sizes={
-                          p.category === 'motion'
-                            ? '(max-width: 767px) 50vw, 25vw'
-                            : '(max-width: 767px) 100vw, (max-width: 991px) 52vw, 42vw'
-                        }
-                        width={b.media?.width}
-                        height={b.media?.height}
-                        decoding="async"
-                        alt={b.caption || `${p.title}, image ${i + 1}`}
-                        loading={i === 0 ? 'eager' : 'lazy'}
-                      />
-                    ) : b.type === 'embed' ? (
-                      <iframe
-                        src={b.src}
-                        style={b.ratio ? { aspectRatio: b.ratio } : undefined}
-                        title={p.title + ' video'}
-                        loading="lazy"
-                        allow="autoplay; fullscreen; picture-in-picture"
-                        allowFullScreen
-                      />
-                    ) : b.type === 'video' ? (
-                      <video
-                        src={b.src}
-                        controls
-                        playsInline
-                        preload="metadata"
-                      />
-                    ) : null}
-                    {b.caption && <figcaption>{b.caption}</figcaption>}
-                  </figure>
-                ))}
+                {pairTallEmbeds(p.blocks).map((group) =>
+                  group.length === 2 ? (
+                    <div className="embed-pair" key={group[0].i}>
+                      {group.map(({ b, i }) => renderBlock(p, b, i))}
+                    </div>
+                  ) : (
+                    renderBlock(p, group[0].b, group[0].i)
+                  ),
+                )}
               </div>
             </article>
           </section>

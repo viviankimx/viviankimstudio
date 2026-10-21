@@ -1,6 +1,6 @@
 ---
-title: Coach
-subtitle: Life In Progress
+title: VANITY FAIR
+subtitle: MARGARET QUALLEY
 cover: 01.jpg
 ---
 

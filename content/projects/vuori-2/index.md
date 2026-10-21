@@ -1,6 +1,6 @@
 ---
-title: Vuori
-subtitle: Livvy Dunne
+title: VUORI
+subtitle: LIVVY DUNNE
 cover: 01.jpg
 ---
 
