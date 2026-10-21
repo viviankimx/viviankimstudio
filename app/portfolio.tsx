@@ -324,8 +324,9 @@ export default function Portfolio({
       <Mosaic
         items={ordered().map((p: Project) => ({
           id: p.slug,
-          src: p.cover,
-          ...p.coverMedia,
+          ...(kind === 'featured' && p.featuredCover
+            ? { src: p.featuredCover, ...p.featuredCoverMedia }
+            : { src: p.cover, ...p.coverMedia }),
           sizes:
             kind === 'featured'
               ? '(max-width: 767px) 50vw, 38vw'

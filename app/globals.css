@@ -370,9 +370,9 @@ h6 {
   text-align: left;
 }
 .hero h1 {
-  font-size: var(--studio-heading-size);
-  line-height: 1;
-  letter-spacing: -0.015rem;
+  font-size: var(--studio-hero-size);
+  line-height: 1.35;
+  letter-spacing: normal;
   white-space: pre-line;
   margin: 0 0 1vw;
   padding: 0;
@@ -490,6 +490,7 @@ h6 {
   --studio-font: 'Studio Helvetica Neue', 'Helvetica Neue', Arial, sans-serif;
   --studio-heading-size: 1.8rem;
   --studio-body-size: 0.875rem;
+  --studio-hero-size: 1.25rem;
   --studio-tracking: -0.015rem;
 }
 html {
@@ -537,12 +538,14 @@ a {
   :root {
     --studio-heading-size: 1.5vw;
     --studio-body-size: 0.75vw;
+    --studio-hero-size: 1.05vw;
   }
 }
 @media (max-width: 991px) {
   :root {
     --studio-heading-size: 1.15rem;
     --studio-body-size: 0.75rem;
+    --studio-hero-size: 1rem;
   }
 }
 @media (max-width: 767px) {
@@ -586,7 +589,6 @@ a {
   }
   .hero {
     height: auto;
-    min-height: 56vw;
     padding-top: max(6.25rem, 6.75vw);
   }
   .hero-content {

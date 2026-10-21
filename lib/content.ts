@@ -21,6 +21,9 @@ export type Project = {
   category: Category;
   cover: string;
   coverMedia?: Media;
+  /** Optional cover for the homepage Featured mosaic, which shows covers at their own shape. */
+  featuredCover?: string;
+  featuredCoverMedia?: Media;
   blocks: Block[];
 };
 export type Memory = { id: string; src: string; caption: string } & Media;
@@ -124,6 +127,7 @@ export function parseProject(slug: string, md: string, category: Category): Proj
     description: text.join('\n').replace(/\n{3,}/g, '\n\n').trim(),
     category,
     cover: data.cover || blocks.find((b) => b.type === 'image')?.src || '',
+    ...(data.featured_cover ? { featuredCover: data.featured_cover } : {}),
     blocks,
   } satisfies Project;
 }
@@ -180,6 +184,11 @@ export function getSite(): Site {
         const m = mediaUrl(path.join('projects', slug, p.cover), manifest, where);
         p.cover = m.url;
         p.coverMedia = m.media;
+      }
+      if (p.featuredCover) {
+        const m = mediaUrl(path.join('projects', slug, p.featuredCover), manifest, where);
+        p.featuredCover = m.url;
+        p.featuredCoverMedia = m.media;
       }
       projects[slug] = p;
     }

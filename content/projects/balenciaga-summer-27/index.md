@@ -1,7 +1,8 @@
 ---
 title: BALENCIAGA
 subtitle: SUMMER 27
-cover: cover.jpg
+cover: cover-wide.jpg
+featured_cover: cover.jpg
 ---
 
 https://vimeo.com/1236416676 1080x1440
