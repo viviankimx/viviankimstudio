@@ -1,7 +1,7 @@
 ---
 title: Vans Surf
 subtitle: Always Moving
-cover: 01.jpg
+cover: 04.jpg
 ---
 
 ![](01.jpg)

@@ -153,7 +153,7 @@ Vivian Kim is a director and photographer based in New York and Los Angeles.
 - danielle-guizio
 - deb-never
 - adidas-originals-x-thug-club
-- vuori-x-colston
+- ralph-lauren-gq-korea
 - adidas-originals-x-willy-chavarria
 - kolon-sport
 - mcqueen-ss26
@@ -166,10 +166,12 @@ Vivian Kim is a director and photographer based in New York and Los Angeles.
 - nautica-for-her-2
 - gq
 - vuori-3
+- zenni-chase-stokes
 - vans-2
 - vogue-ask-away-with-rose
 - kolon-sport-sy
 - ua
+- vuori-x-colston
 - otherling-2
 - nike-3
 - vuori-kg
