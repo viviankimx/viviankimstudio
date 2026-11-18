@@ -161,12 +161,12 @@ Vivian Kim is a director and photographer based in New York and Los Angeles.
 - hypebeast
 - ysl-hb
 - ysl-lb
+- zenni-chase-stokes
 - therapuss-s3-trailer
 - a-rabbits-foot
 - nautica-for-her-2
 - gq
 - vuori-3
-- zenni-chase-stokes
 - vans-2
 - vogue-ask-away-with-rose
 - kolon-sport-sy
